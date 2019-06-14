@@ -8,15 +8,7 @@
    
    <body>
 
-   	<!--
-      <form action = "http://localhost:8000/uploader" method = "POST"
-         enctype = "multipart/form-data">
-         <input type = "file" name = "file" />
-         <input type = "submit"/>
-
-      </form>
-	-->
-
+ 
 	<!-- ADD IMAGE -->
 	<form data-bind="submit: saveImage" method="POST" role="form" enctype="multipart/form-data">
 		
@@ -33,72 +25,36 @@
 	</form>
 
 
-	<!-- GRAYSCALE CONVERT -->
-	<form data-bind="submit: gray_convert" method="POST" role="form" enctype="multipart/form-data">
-		<button type="submit" data-bind="enable: imageExists">Convert to Grayscale</button>	
-	</form>
-	<!-- GET GRAYSCALE -->
-	<form data-bind="submit: get_gray_convert" method="POST" role="form" enctype="multipart/form-data">
-		<button type="submit" data-bind="enable: imageExists">Get Grayscale</button>	
+	<!-- TEXT DETECTION PART -->
+	<form data-bind="submit: text_detect" method="POST" role="form" enctype="multipart/form-data">
+		<button type="submit" data-bind="enable: imageExists">Text Detection</button>	
 	</form>
 
-
-
-
-	<!-- SHARPENING -->
-	<form data-bind="submit: sharp" method="POST" role="form" enctype="multipart/form-data">
-
-		<button type="submit" data-bind="enable: imageExists">Sharpning</button>		
-	</form>
-
-	<!-- GET SHARPENING -->
-	<form data-bind="submit: get_sharp_convert" method="POST" role="form" enctype="multipart/form-data">
-		<button type="submit" data-bind="enable: imageExists">Get Sharp</button>	
+	<form data-bind="submit: get_text_detect" method="POST" role="form" enctype="multipart/form-data">
+		<button type="submit" data-bind="enable: imageExists">Get Text Detection</button>	
 	</form>
 
 
 
 
-
-	<!-- BLURING -->
-	<form data-bind="submit: blur" method="POST" role="form" enctype="multipart/form-data">
-
-		<button type="submit" data-bind="enable: imageExists">Gaussian Blur</button>		
+	<!-- PREPROCESSING PART -->
+	<form data-bind="submit: text_preprocess" method="POST" role="form" enctype="multipart/form-data">
+		<button type="submit" data-bind="enable: imageExists">Preprocess Mask</button>		
 	</form>
 
-	<!-- GET BLURING -->
-	<form data-bind="submit: get_blur_convert" method="POST" role="form" enctype="multipart/form-data">
-		<button type="submit" data-bind="enable: imageExists">Get Blur</button>	
+	<form data-bind="submit: get_text_preprocess" method="POST" role="form" enctype="multipart/form-data">
+		<button type="submit" data-bind="enable: imageExists">Get Preprocessed Mask</button>	
 	</form>
 
 
-
-
-	<!-- EDGE -->
-	<form data-bind="submit: edge" method="POST" role="form" enctype="multipart/form-data">
-
-		<button type="submit" data-bind="enable: imageExists">Canny Edge Map</button>		
-
+	<!-- TEXT RECOGNITION PART -->
+	<form data-bind="submit: text_recognize" method="POST" role="form" enctype="multipart/form-data">
+		<button type="submit" data-bind="enable: imageExists">Text Recognize</button>		
 	</form>
 
-	<!-- GET EDGE -->
-	<form data-bind="submit: get_edge_convert" method="POST" role="form" enctype="multipart/form-data">
-		<button type="submit" data-bind="enable: imageExists">Get Edge</button>	
+	<form data-bind="submit: get_text_recognize" method="POST" role="form" enctype="multipart/form-data">
+		<button type="submit" data-bind="enable: imageExists">Get Text Result</button>	
 	</form>
-
-
-
-	<!-- SALIENCY -->
-	<form data-bind="submit: saliency" method="POST" role="form" enctype="multipart/form-data">
-
-		<button type="submit" data-bind="enable: imageExists">Residual Saliency</button>		
-	</form>
-
-	<!-- GET SALIENCY -->
-	<form data-bind="submit: get_saliency_convert" method="POST" role="form" enctype="multipart/form-data">
-		<button type="submit" data-bind="enable: imageExists">Get Saliency</button>	
-	</form>
-
 
 	
 	<!-- SHOW IMAGE -->
@@ -115,24 +71,6 @@
 		</ul>
 
 	</form>
-
-	<!-- SUBMIT INFO AND SAVE IT -->
-	<!--
-	<div>
-		
-		<form data-bind="submit : saveInfo" role="form" method="POST" enctype="multipart/form-data">
-
-			<p>Enter your name: <input data-bind = "value: yourName" /></p>
-			 <p>Name: <strong data-bind = "text: yourName"></strong> </p>
-			 <p>Enter your surname: <input data-bind = "value: yourSurname" /></p>
-			 <p>Surname: <strong data-bind = "text: yourSurname"></strong></p>
-	 		<button type="submit">Save Info</button>
-
-		</form>
-	
-
-	</div>
-	-->
  	
  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
  	<script src="{{url_for('static', filename='upload_1.js')}}"></script>

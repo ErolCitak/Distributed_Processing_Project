@@ -8,56 +8,38 @@ services:
     ports:
       - 5001:80  # host:container
     links:
-      - "gray_service:gr"
-      - "sharp_service:sh"
-      - "blur_service:bl"
-      - "edge_service:ed"
-      - "saliency_service:sa"
+      - "text_detection_service:tds"
+      - "text_preprocessing_service:tps"
+      - "text_recognition_service:trs"
     command: pip install -r requirements.txt
     command: python3 -u app.py
     
 
-  gray_service:
-    build: ./gray  # path is relative to docker-compose.yml localtion
+  text_detection_service:
+    build: ./detection  # path is relative to docker-compose.yml localtion
     volumes:
-      - ./gray:/usr/src/app # mount point
+      - ./detection:/usr/src/app # mount point
     ports:
       - 5002:80  # host:container
     command: pip install -r requirements.txt
-    command: python3 -u gray_app.py
+    command: pip install shapely
+    command: apt-get install libgeos-dev
+    command: python3 -u detection_app.py
 
-  sharp_service:
-    build: ./sharp  # path is relative to docker-compose.yml localtion
+  text_preprocessing_service:
+    build: ./preprocess  # path is relative to docker-compose.yml localtion
     volumes:
-      - ./sharp:/usr/src/app # mount point
+      - ./preprocess:/usr/src/app # mount point
     ports:
       - 5003:80  # host:container
     command: pip install -r requirements.txt
-    command: python3 -u sharp_app.py
+    command: python3 -u preprocess_app.py
 
-  blur_service:
-    build: ./blur  # path is relative to docker-compose.yml localtion
+  text_recognition_service:
+    build: ./recognition  # path is relative to docker-compose.yml localtion
     volumes:
-      - ./blur:/usr/src/app # mount point
+      - ./recognition:/usr/src/app # mount point
     ports:
       - 5004:80  # host:container
     command: pip install -r requirements.txt
-    command: python3 -u blur_app.py
-
-  edge_service:
-    build: ./edge  # path is relative to docker-compose.yml localtion
-    volumes:
-      - ./edge:/usr/src/app # mount point
-    ports:
-      - 5005:80  # host:container
-    command: pip install -r requirements.txt
-    command: python3 -u edge_app.py
-
-  saliency_service:
-    build: ./saliency  # path is relative to docker-compose.yml localtion
-    volumes:
-      - ./saliency:/usr/src/app # mount point
-    ports:
-      - 5006:80  # host:container
-    command: pip install -r requirements.txt
-    command: python3 -u saliency_app.py 
+    command: python3 -u recognition_app.py

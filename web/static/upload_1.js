@@ -3,9 +3,6 @@ function ViewModel() {
     this.files=  ko.observableArray([]);
     this.imageExists = ko.observable(false);
     this.imageSave = ko.observable(true);
-
-	this.yourName = ko.observable("erol");
-    this.yourSurname = ko.observable("çıtak");
     this.media = ko.observableArray([]);
 
     this.fileSelect= function (elemet,event) {
@@ -61,10 +58,10 @@ function ViewModel() {
 //////////////////////////////////////////////////////////////////////////////////
 
 
-    this.gray_convert = function() {
+    this.text_detect = function() {
     // remove latest image in array
     $.ajax({
-            url: '/gray_convert',
+            url: '/text_detect',
             type: 'POST',
             contentType: false,
             processData: false,
@@ -84,22 +81,22 @@ function ViewModel() {
         })
     }
 
-    this.get_gray_convert = function() {
-    // get grayscale image
+    this.get_text_detect = function() {
+    // get preprocessed image
     $.ajax({
-            url: '/get_gray_convert',
+            url: '/get_text_detect',
             type: 'GET',
             contentType: false,
             processData: false,
 
             success: function(data) {
-                alert("Getting Gray is OK")
+                alert(data["result"])
                 self.imageExists(true);
                 self.imageSave(true);
 
             },
             error: function() {
-                alert("Getting Gray is NOT OK")
+                alert("Getting Preprocessing NOT OK")
                 self.imageExists(true);
                 self.imageSave(false);
 
@@ -110,10 +107,10 @@ function ViewModel() {
 
 //////////////////////////////////////////////////////////////////////////////////
 
-this.sharp = function() {
+this.text_recognize = function() {
     // remove latest image in array
     $.ajax({
-            url: '/sharp',
+            url: '/text_recognize',
             type: 'POST',
             contentType: false,
             processData: false,
@@ -134,10 +131,10 @@ this.sharp = function() {
         })
     }
 
-    this.get_sharp_convert = function() {
+    this.get_text_recognize = function() {
     // get sharpening image
     $.ajax({
-            url: '/get_sharp_convert',
+            url: '/get_text_recognize',
             type: 'GET',
             contentType: false,
             processData: false,
@@ -160,10 +157,10 @@ this.sharp = function() {
 
 //////////////////////////////////////////////////////////////////////////////////
 
-this.blur = function() {
+this.text_preprocess = function() {
     // remove latest image in array
     $.ajax({
-            url: '/blur',
+            url: '/text_preprocess',
             type: 'POST',
             contentType: false,
             processData: false,
@@ -184,87 +181,11 @@ this.blur = function() {
         })
     }
 
-    this.get_blur_convert = function() {
-    // get blur image
-    $.ajax({
-            url: '/get_blur_convert',
-            type: 'GET',
-            contentType: false,
-            processData: false,
-
-            success: function(data) {
-                alert("Getting Blur is OK")
-                self.imageExists(true);
-                self.imageSave(true);
-
-            },
-            error: function() {
-                alert("Getting Blur is NOT OK")
-                self.imageExists(true);
-                self.imageSave(false);
-
-            }
-        })
-    
-    }
-
-//////////////////////////////////////////////////////////////////////////////////
-
-this.edge = function() {
-    // remove latest image in array
-    $.ajax({
-            url: '/edge',
-            type: 'POST',
-            contentType: false,
-            processData: false,
-
-            success: function(data) {
-                alert(data["result"])
-                self.imageExists(true);
-                self.imageSave(true);
-
-
-            },
-            error: function() {
-                alert(data["result"])
-                self.imageExists(true);
-                self.imageSave(false);
-
-            }
-        })
-    }
-
-    this.get_edge_convert = function() {
+    this.get_text_preprocess = function() {
     // get edge image
     $.ajax({
-            url: '/get_edge_convert',
+            url: '/get_text_preprocess',
             type: 'GET',
-            contentType: false,
-            processData: false,
-
-            success: function(data) {
-                alert("Getting Edge is OK")
-                self.imageExists(true);
-                self.imageSave(true);
-
-            },
-            error: function() {
-                alert("Getting Edge is NOT OK")
-                self.imageExists(true);
-                self.imageSave(false);
-
-            }
-        })
-    
-    }
-
-//////////////////////////////////////////////////////////////////////////////////
-
-this.saliency = function() {
-    // remove latest image in array
-    $.ajax({
-            url: '/saliency',
-            type: 'POST',
             contentType: false,
             processData: false,
 
@@ -272,7 +193,6 @@ this.saliency = function() {
                 alert(data["result"])
                 self.imageExists(true);
                 self.imageSave(true);
-
 
             },
             error: function() {
@@ -282,60 +202,13 @@ this.saliency = function() {
 
             }
         })
-    }
-
-    this.get_saliency_convert = function() {
-    // get saliency image
-    $.ajax({
-            url: '/get_saliency_convert',
-            type: 'GET',
-            contentType: false,
-            processData: false,
-
-            success: function(data) {
-                alert("Getting saliency is OK")
-                self.imageExists(true);
-                self.imageSave(true);
-
-            },
-            error: function() {
-                alert("Getting saliency is NOT OK")
-                self.imageExists(true);
-                self.imageSave(false);
-
-            }
-        })
     
     }
 
 
-
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////
-
-	this.saveInfo = function(formElement){
-
-	    var inf = ko.toJSON({"yourName":this.yourName, "yourSurname":this.yourSurname});
-        alert(inf);
-
-
-
-		$.ajax({
-            url: '/uploader_app',
-            contentType: "application/json",
-            type: 'POST',
-            //data: JSON.stringify({"yourName":"Erol", "yourSurname" : "Çıtlak"}),
-            data: inf,
-            success: function(data) {
-                alert("Success!..")
-            },
-            error: function() {
-                alert("Failed!..")
-            }
-	    })
-	}
- 
+////////////////////////////////////////////////////////////////////////////////// 
 	this.saveImage = function() {
 
 		var formData = new FormData();
@@ -361,6 +234,7 @@ this.saliency = function() {
                 self.media.push({media_url: base.concat(data["filename"])});
             },
             error: function() {
+                alert("yokh yaa")
                 alert(data["result"])
                 self.imageExists(false);
                 self.imageSave(true);
