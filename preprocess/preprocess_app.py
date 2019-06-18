@@ -48,7 +48,8 @@ def txt_preprocess():
 	print("a2")
 
 	# CCA
-	im = cv2.cvtColor(img_dilation, cv2.COLOR_BGR2GRAY)
+	#im = cv2.cvtColor(img_dilation, cv2.COLOR_BGR2GRAY)
+	"""
 	ret, comp = cv2.connectedComponents(img_dilation,16)
 
 	mask_im = np.array(comp, dtype=np.uint8)
@@ -60,9 +61,9 @@ def txt_preprocess():
 	# morph for cca
 	mask_im = cv2.dilate(mask_im, kernel_sqr, iterations=2)
 	mask_im = cv2.erode(mask_im, kernel_sqr, iterations=2)
+	"""
 
-
-	cv2.imwrite(os.path.join(UPLOAD_FOLDER, 'Preprocessed_Image.jpg'), mask_im)
+	cv2.imwrite(os.path.join(UPLOAD_FOLDER, 'Preprocessed_Image.jpg'), img_dilation)
 	
 	return 'Preprocessing Success!..'
 
